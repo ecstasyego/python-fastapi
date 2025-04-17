@@ -14,7 +14,7 @@ def index():
     return {"message": "Hello, FastAPI!"}
 ```
 ```bash
-uvicorn main:app --reload
+$ uvicorn main:app --reload
 ```
 
 
