@@ -1,4 +1,9 @@
 # python-fastapi
+```bash
+$ pip install fastapi uvicorn
+```
+
+<br>
 
 ## ASGI(Asynchronous Server Gateway Interface)
 ### FastAPI + [Uvicorn|Hypercorn|Daphne]
