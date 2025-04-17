@@ -3,6 +3,21 @@
 $ pip install fastapi uvicorn
 ```
 
+`main.py`
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def index():
+    return {"message": "Hello, FastAPI!"}
+```
+```bash
+uvicorn main:app --reload
+```
+
+
 <br>
 
 ## ASGI(Asynchronous Server Gateway Interface)
