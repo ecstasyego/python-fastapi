@@ -1,7 +1,8 @@
 # python-fastapi
 `Installation`
 ```bash
-$ pip install fastapi uvicorn
+$ pip install fastapi
+$ pip install uvicorn
 ```
 
 ### Server
