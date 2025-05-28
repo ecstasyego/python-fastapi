@@ -69,8 +69,19 @@ $ gunicorn -k uvicorn.workers.UvicornWorker script:app
 $ gunicorn -k uvicorn.workers.UvicornWorker script:app -b 0.0.0.0:8000
 $ gunicorn -k uvicorn.workers.UvicornWorker script:app -b 0.0.0.0:8000 -w 4
 $ gunicorn -k uvicorn.workers.UvicornWorker script:app --bind 0.0.0.0:8000 --workers 4
+$ PYTHONPATH=/home/[user]/anaconda3/lib/python3.12/site-packages gunicorn -k uvicorn.workers.UvicornWorker script:app
+$ PYTHONPATH=/home/[user]/anaconda3/lib/python3.12/site-packages gunicorn -k uvicorn.workers.UvicornWorker script:app -b 0.0.0.0:8000
+$ PYTHONPATH=/home/[user]/anaconda3/lib/python3.12/site-packages gunicorn -k uvicorn.workers.UvicornWorker script:app -b 0.0.0.0:8000 -w 4
+$ PYTHONPATH=/home/[user]/anaconda3/lib/python3.12/site-packages gunicorn -k uvicorn.workers.UvicornWorker script:app --bind 0.0.0.0:8000 --workers 4
 ```
 
+---
 
+```bash
+$ which python
+$ which pip
+$ which uvicorn
+$ which gunicorn
+```
 
 
