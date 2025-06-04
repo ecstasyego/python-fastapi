@@ -156,3 +156,87 @@ fun main() = runBlocking {
 
 main()
 ```
+
+`Client: Retorift2 + Okhttp3`
+```kts
+USE {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        implementation("com.squareup.retrofit2:retrofit:2.9.0")
+        implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+        implementation("com.squareup.okhttp3:okhttp:4.11.0")
+    }
+}
+```
+```kts
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.*
+import kotlinx.coroutines.runBlocking
+import com.google.gson.annotations.SerializedName
+import okhttp3.Interceptor
+import okhttp3.Response
+import okhttp3.OkHttpClient
+
+
+data class TokenResponse(
+    @SerializedName("access_token") val token: String,
+    @SerializedName("token_type") val type: String
+)
+
+data class UserResponse(
+    @SerializedName("username") val username: String,
+    @SerializedName("full_name") val fullName: String? = null
+)
+
+interface ApiService {
+    @FormUrlEncoded
+    @POST("/token")
+    suspend fun login(
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): TokenResponse
+
+    @GET("/users/me")
+    suspend fun getUserInfo(): UserResponse
+}
+
+class AuthInterceptor(private val tokenProvider: () -> String?) : Interceptor {
+    override fun intercept(chain: Interceptor.Chain): Response {
+        val requestBuilder = chain.request().newBuilder()
+        val token = tokenProvider()
+        if (!token.isNullOrEmpty()) {
+            requestBuilder.addHeader("Authorization", "Bearer $token")
+        }
+        return chain.proceed(requestBuilder.build())
+    }
+}
+
+var accessToken: String? = null
+
+val retrofit = Retrofit.Builder()
+    .baseUrl("---.---.---.---")
+    .client(OkHttpClient.Builder().addInterceptor(AuthInterceptor { accessToken }).build())
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+
+val api = retrofit.create(ApiService::class.java)
+
+fun main() = runBlocking {
+    try {
+        val loginResponse = api.login("testuser", "secret")
+        accessToken = loginResponse.token
+        println("Access Token: $accessToken")
+
+        val user = api.getUserInfo()
+        println("User: ${user.username}")
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+main()
+```
