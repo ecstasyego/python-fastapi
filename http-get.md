@@ -7,7 +7,7 @@ from fastapi import FastAPI
 app = FastAPI()
 
 @app.get("/users/{username}")
-def get_user(username: str):
+def response(username: str):
     return {"name": "Alice", "age": 30}
 ```
 ```bash
