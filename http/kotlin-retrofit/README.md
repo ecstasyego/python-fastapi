@@ -122,7 +122,7 @@ main()
 ## Content-Type: application/json
 ### Server: Response
 ```python
-from fastapi import FastAPI, Path, Query, Body
+from fastapi import FastAPI, Path, Query, Body, Header
 from pydantic import BaseModel
 from typing import Optional
 
@@ -140,10 +140,17 @@ class JsonContentType(BaseModel):
 app = FastAPI()
 
 @app.post("/src/{param00}/{param01}")
-def response(param00: str = Path(...), param01: str = Path(...), param02: JsonContentType = Body(...), param03: str = Query(...), param04: int = Query(...)):
+def response(
+        param00: str = Path(...),
+        param01: str = Path(...),
+        param02: str = Header(...),
+        param03: JsonContentType = Body(...),
+        param04: str = Query(...),
+        param05: int = Query(...)
+        ):
     serverResponse = dict()
     serverResponse["rspns00"] = "Alice"
-    serverResponse["rspns01"] = param02
+    serverResponse["rspns01"] = param03
     return serverResponse
 ```
 ```bash
@@ -187,10 +194,11 @@ interface ApiService {
     @POST("/src/{param00}/{param01}")
     suspend fun request(
         @Path("param00") param00: String, 
-        @Path("param01") param01: String, 
-        @Body param02: JsonContentType,
-        @Query("param03") param03: String,
-        @Query("param04") param04: Int
+        @Path("param01") param01: String,
+        @Header("param02") param02: String,
+        @Body param03: JsonContentType,
+        @Query("param04") param04: String,
+        @Query("param05") param05: Int
     ): Map<String, Any>
 }
 
@@ -206,7 +214,8 @@ fun main() = runBlocking {
         api.request(
             param00 = "req",
             param01 = "res",
-            param02 = JsonContentType(
+            param02 = "Authentification",
+            param03 = JsonContentType(
                 rqst00 = "A",
                 rqst01 = 1,
                 rqst02 = 3.14f,
@@ -216,8 +225,8 @@ fun main() = runBlocking {
                 rqst06 = null,
                 rqst07 = null
             ),
-            param03 = "querystring",
-            param04 = 1
+            param04 = "querystring",
+            param05 = 1
         )
     } catch (e: Exception) {
         e.printStackTrace()
