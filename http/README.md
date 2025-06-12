@@ -32,7 +32,7 @@ $ curl -X POST -d "Key1=Value1&Key2=Value2" [Scheme://User@Host:Port/Path#Fragme
 
 
 ## python-requests
-
+`HTTP Method`
 ```python
 import requests
 
