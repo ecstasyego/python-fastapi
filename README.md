@@ -165,11 +165,15 @@ val retrofit = Retrofit.Builder()
 
 val api = retrofit.create(ApiService::class.java)
 
-fun dataLoader() = runBlocking {
-    api.getData()
+fun main() = runBlocking {
+    try {
+        api.getData()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }
 
-dataLoader()
+main()
 ```
 
 
@@ -241,11 +245,15 @@ val retrofit = Retrofit.Builder()
 
 val api = retrofit.create(ApiService::class.java)
 
-fun dataLoader() = runBlocking {
-    api.getData().toDataFrame()
+fun main() = runBlocking {
+    try {
+        api.getData().toDataFrame()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
 }
 
-dataLoader()
+main()
 ```
 
 
@@ -274,7 +282,47 @@ $ uvicorn main:app --host 0.0.0.0 --port 8000 --reload
 
 
 ### Client: Request
+```kts
+USE {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        implementation("com.squareup.retrofit2:retrofit:2.9.0")
+        implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+        implementation("com.squareup.retrofit2:converter-scalars:2.9.0")
+        implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+    }
+}
+```
+```kts
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.http.GET
+import kotlinx.coroutines.runBlocking
 
+interface ApiService {
+    @GET("/")
+    suspend fun getData(): String
+}
+
+val retrofit = Retrofit.Builder()
+    .baseUrl("http://localhost:8000")
+    .addConverterFactory(ScalarsConverterFactory.create())
+    .build()
+
+val api = retrofit.create(ApiService::class.java)
+
+fun main() = runBlocking {
+    try {
+        api.getData()
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+main()
+```
 
 
 <br><br><br>
