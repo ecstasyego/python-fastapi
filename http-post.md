@@ -11,9 +11,9 @@ class Response(BaseModel):
 
 app = FastAPI()
 
-@app.get("/users/{username}")
-def get_user(username: str):
-    return {"name": "Alice", "age": 30}
+@app.post("/users")
+def response(request: Response):
+    return {"message": "User created", "user": request}
 ```
 ```bash
 $ uvicorn script:app --host 0.0.0.0 --port 8000 --reload
@@ -35,4 +35,41 @@ USE {
 }
 ```
 ```kts
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.*
+import kotlinx.coroutines.runBlocking
+
+data class Request(
+    val name: String,
+    val age: Int
+)
+
+data class Response(
+    val message: String,
+    val user: Request
+)
+
+interface ApiService {
+    @POST("/users")
+    suspend fun getData(@Body user: Request): Response
+}
+
+val retrofit = Retrofit.Builder()
+    .baseUrl("http://localhost:8000")
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+
+val api = retrofit.create(ApiService::class.java)
+
+fun main() = runBlocking {
+    try {
+        api.getData(Request("Bob", 25))
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+main()
 ```
