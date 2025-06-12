@@ -121,6 +121,18 @@ main()
 
 ## Content-Type: application/json
 ### Server: Response
+- Parameter
+    - Request Components 
+        - Path(...) / Path(None)
+        - Query(...) / Query(None)
+        - Body(...) / Body(None)
+        - Header(...) / Header(None)
+    - Data Types
+        - :str / :Optional[str] = None
+        - :int / :Optional[int] = None
+        - :float / :Optional[float] = None
+        - :bool / :Optional[bool] = None
+
 ```python
 from fastapi import FastAPI, Path, Query, Body, Header
 from pydantic import BaseModel
