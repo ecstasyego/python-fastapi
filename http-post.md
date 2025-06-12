@@ -5,15 +5,15 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-class Response(BaseModel):
+class ClientRequest(BaseModel):
     name: str
     age: int
 
 app = FastAPI()
 
 @app.post("/users")
-def response(request: Response):
-    return {"message": "User created", "user": request}
+def response(request: ClientRequest):
+    return {"rspns00": "User created", "rspns01": request}
 ```
 ```bash
 $ uvicorn script:app --host 0.0.0.0 --port 8000 --reload
@@ -46,14 +46,14 @@ data class Request(
     val age: Int
 )
 
-data class Response(
-    val message: String,
-    val user: Request
+data class ServerResponse(
+    val rspns00: String,
+    val rspns01: Request
 )
 
 interface ApiService {
     @POST("/users")
-    suspend fun getData(@Body user: Request): Response
+    suspend fun getData(@Body rspns01: Request): ServerResponse
 }
 
 val retrofit = Retrofit.Builder()
