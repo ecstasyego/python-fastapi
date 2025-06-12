@@ -56,7 +56,7 @@ data class ServerResponse(
 
 interface ApiService {
     @POST("/src")
-    suspend fun getData(@Body param00: Request): ServerResponse
+    suspend fun request(@Body param00: Request): ServerResponse
 }
 
 val retrofit = Retrofit.Builder()
@@ -68,7 +68,7 @@ val api = retrofit.create(ApiService::class.java)
 
 fun main() = runBlocking {
     try {
-        api.getData(Request("Bob", 25))
+        api.request(Request("Bob", 25))
     } catch (e: Exception) {
         e.printStackTrace()
         println("${e.message}")
