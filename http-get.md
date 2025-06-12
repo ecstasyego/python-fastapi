@@ -46,7 +46,7 @@ data class ServerResponse(
 
 interface ApiService {
     @GET("/src/{param00}")
-    suspend fun getData(@Path("param00") param00: String): ServerResponse
+    suspend fun request(@Path("param00") param00: String): ServerResponse
 }
 
 val retrofit = Retrofit.Builder()
@@ -58,7 +58,7 @@ val api = retrofit.create(ApiService::class.java)
 
 fun main() = runBlocking {
     try {
-        api.getData("Dao")
+        api.request("Dao")
     } catch (e: Exception) {
         e.printStackTrace()
         println("${e.message}")
