@@ -146,7 +146,9 @@ def response(
         param02: str = Header(...),
         param03: JsonContentType = Body(...),
         param04: str = Query(...),
-        param05: int = Query(...)
+        param05: int = Query(...),
+        param06: Optional[str] = Query(None),
+        param07: Optional[int] = Query(None)
         ):
     serverResponse = dict()
     serverResponse["rspns00"] = "Alice"
@@ -198,7 +200,9 @@ interface ApiService {
         @Header("param02") param02: String,
         @Body param03: JsonContentType,
         @Query("param04") param04: String,
-        @Query("param05") param05: Int
+        @Query("param05") param05: Int,
+        @Query("param06") param06: String?,
+        @Query("param07") param07: Int?,        
     ): Map<String, Any>
 }
 
@@ -226,7 +230,9 @@ fun main() = runBlocking {
                 rqst07 = null
             ),
             param04 = "querystring",
-            param05 = 1
+            param05 = 1,
+            param06 = null,
+            param07 = null
         )
     } catch (e: Exception) {
         e.printStackTrace()
