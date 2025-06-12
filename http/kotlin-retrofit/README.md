@@ -122,6 +122,21 @@ main()
 ## Content-Type: application/json
 ### Server: Response
 ```python
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+class ClientRequest(BaseModel):
+    rqst00: str
+    rqst01: int
+
+app = FastAPI()
+
+@app.post("/src/{param00}/{param01}")
+def response(param00: str, param01: str, param02: ClientRequest):
+    serverResponse = dict()
+    serverResponse["rspns00"] = "Alice"
+    serverResponse["rspns01"] = 30
+    return serverResponse
 ```
 ```bash
 $ uvicorn script:app --host 0.0.0.0 --port 8000 --reload
@@ -142,5 +157,49 @@ USE {
 }
 ```
 ```kts
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.*
+import kotlinx.coroutines.runBlocking
+
+data class JsonContentType(
+    val rqst00: String,
+    val rqst01: Int
+)
+
+interface ApiService {
+    @POST("/src/{param00}/{param01}")
+    suspend fun request(
+        @Path("param00") param00: String, 
+        @Path("param01") param01: String, 
+        @Body param02: JsonContentType
+    ): Map<String, Any>
+}
+
+val retrofit = Retrofit.Builder()
+    .baseUrl("http://localhost:8000")
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+
+val api = retrofit.create(ApiService::class.java)
+
+fun main() = runBlocking {
+    try {
+        api.request(
+            "req",
+            "res",
+            JsonContentType(
+                "A",
+                1
+            )
+        )
+    } catch (e: Exception) {
+        e.printStackTrace()
+        println("${e.message}")
+    }
+}
+
+main()
 ```
 
