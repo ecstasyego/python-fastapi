@@ -71,6 +71,7 @@ fun main() = runBlocking {
         api.getData(Request("Bob", 25))
     } catch (e: Exception) {
         e.printStackTrace()
+        println("${e.message}")
     }
 }
 
