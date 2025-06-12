@@ -2,6 +2,18 @@
 ## Server: Response
 `script.py`
 ```python
+from fastapi import FastAPI
+from pydantic import BaseModel
+
+class Response(BaseModel):
+    name: str
+    age: int
+
+app = FastAPI()
+
+@app.get("/users/{username}")
+def get_user(username: str):
+    return {"name": "Alice", "age": 30}
 ```
 ```bash
 $ uvicorn script:app --host 0.0.0.0 --port 8000 --reload
