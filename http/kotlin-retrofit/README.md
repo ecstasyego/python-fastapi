@@ -160,11 +160,13 @@ def response(
         param04: str = Query(...),
         param05: int = Query(...),
         param06: Optional[str] = Query(None),
-        param07: Optional[int] = Query(None)
+        param07: Optional[int] = Query(None),
+        param08: Request = None
         ):
     serverResponse = dict()
     serverResponse["rspns00"] = "Alice"
     serverResponse["rspns01"] = param03
+    serverResponse["rspns02"] = dict(param08.query_params)
     return serverResponse
 ```
 ```bash
@@ -214,7 +216,8 @@ interface ApiService {
         @Query("param04") param04: String,
         @Query("param05") param05: Int,
         @Query("param06") param06: String?,
-        @Query("param07") param07: Int?,        
+        @Query("param07") param07: Int?,
+        @QueryMap param08: Map<String, @JvmSuppressWildcards Any>
     ): Map<String, Any>
 }
 
@@ -244,7 +247,8 @@ fun main() = runBlocking {
             param04 = "querystring",
             param05 = 1,
             param06 = null,
-            param07 = null
+            param07 = null,
+            param08 = mapOf("q" to "kotlin", "sort" to "recent", "page" to "1")
         )
     } catch (e: Exception) {
         e.printStackTrace()
