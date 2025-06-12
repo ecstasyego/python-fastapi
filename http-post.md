@@ -6,14 +6,17 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 class ClientRequest(BaseModel):
-    name: str
-    age: int
+    rqst00: str
+    rqst01: int
 
 app = FastAPI()
 
-@app.post("/users")
+@app.post("/src")
 def response(request: ClientRequest):
-    return {"rspns00": "User created", "rspns01": request}
+    serverResponse = dict()
+    serverResponse["rspns00"] = "User created"
+    serverResponse["rspns01"] = request
+    return serverResponse
 ```
 ```bash
 $ uvicorn script:app --host 0.0.0.0 --port 8000 --reload
@@ -42,8 +45,8 @@ import retrofit2.http.*
 import kotlinx.coroutines.runBlocking
 
 data class Request(
-    val name: String,
-    val age: Int
+    val rqst00: String,
+    val rqst01: Int
 )
 
 data class ServerResponse(
@@ -52,7 +55,7 @@ data class ServerResponse(
 )
 
 interface ApiService {
-    @POST("/users")
+    @POST("/src")
     suspend fun getData(@Body rspns01: Request): ServerResponse
 }
 
