@@ -6,7 +6,7 @@ from fastapi import FastAPI
 from fastapi.responses import HTMLResponse
 from pydantic import BaseModel
 
-class User(BaseModel):
+class Response(BaseModel):
     name: str
     age: int
 
@@ -42,14 +42,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import kotlinx.coroutines.runBlocking
 
-data class User(
+data class Response(
     val name: String,
     val age: Int
 )
 
 interface ApiService {
     @GET("/users/{username}")
-    suspend fun getData(@Path("username") username: String): User
+    suspend fun getData(@Path("username") username: String): Response
 }
 
 val retrofit = Retrofit.Builder()
