@@ -134,7 +134,7 @@ main()
         - :bool / :Optional[bool] = None
 
 ```python
-from fastapi import FastAPI, Path, Query, Body, Header, Cookie, Form, File, UploadFile
+from fastapi import FastAPI, Path, Query, Request, Body, Header, Cookie, Form, File, UploadFile
 from pydantic import BaseModel
 from typing import Optional
 
