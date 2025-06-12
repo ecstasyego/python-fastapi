@@ -132,10 +132,10 @@ class ClientRequest(BaseModel):
 app = FastAPI()
 
 @app.post("/src/{param00}/{param01}")
-def response(param00: str, param01: str, param02: ClientRequest):
+def response(param00: str, param01: str, param02: ClientRequest, param03: str, param04: int):
     serverResponse = dict()
     serverResponse["rspns00"] = "Alice"
-    serverResponse["rspns01"] = 30
+    serverResponse["rspns01"] = param02
     return serverResponse
 ```
 ```bash
@@ -165,7 +165,7 @@ import kotlinx.coroutines.runBlocking
 
 data class JsonContentType(
     val rqst00: String,
-    val rqst01: Int
+    val rqst01: Int    
 )
 
 interface ApiService {
@@ -173,7 +173,9 @@ interface ApiService {
     suspend fun request(
         @Path("param00") param00: String, 
         @Path("param01") param01: String, 
-        @Body param02: JsonContentType
+        @Body param02: JsonContentType,
+        @Query("param03") param03: String,
+        @Query("param04") param04: Int
     ): Map<String, Any>
 }
 
@@ -187,12 +189,14 @@ val api = retrofit.create(ApiService::class.java)
 fun main() = runBlocking {
     try {
         api.request(
-            "req",
-            "res",
-            JsonContentType(
+            param00 = "req",
+            param01 = "res",
+            param02 = JsonContentType(
                 "A",
                 1
-            )
+            ),
+            param03 = "querystring",
+            param04 = 1
         )
     } catch (e: Exception) {
         e.printStackTrace()
