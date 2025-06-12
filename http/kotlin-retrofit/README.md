@@ -207,14 +207,14 @@ fun main() = runBlocking {
             param00 = "req",
             param01 = "res",
             param02 = JsonContentType(
-                "A",
-                1,
-                3.14f,
-                true,
-                null,
-                null,
-                null,
-                null
+                rqst00 = "A",
+                rqst01 = 1,
+                rqst02 = 3.14f,
+                rqst03 = true,
+                rqst04 = null,
+                rqst05 = null,
+                rqst06 = null,
+                rqst07 = null
             ),
             param03 = "querystring",
             param04 = 1
