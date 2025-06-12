@@ -7,6 +7,7 @@ $ curl -s 127.0.0.1:8000 # --silent # [body]
 $ curl -L 127.0.0.1:8000 # --location # [redirection]
 ```
 
+`HTTP Method`
 ```bash
 $ curl 127.0.0.1:8000 # [GET|BODY]
 $ curl -I 127.0.0.1:8000 # [GET|HEADER]
@@ -19,8 +20,8 @@ $ curl -X DELETE 127.0.0.1:8000 # [DELETE]: Delete
 $ curl -X OPTIONS 127.0.0.1:8000 # [OPTIONS]
 ```
 
+`Query String`
 ```bash
-# Query String
 $ curl [URL(Uniform Resource Locator)]
 $ curl [Scheme://User@Host:Port/Path?Query#Fragment]
 $ curl [Scheme://User@Host:Port/Path?Key1=Value1#Fragment]
