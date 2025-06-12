@@ -40,7 +40,7 @@ import kotlinx.coroutines.runBlocking
 
 interface ApiService {
     @DELETE("/src/{param00}")
-    suspend fun getData(@Path("param00") param00: String): Map<String, Any>
+    suspend fun request(@Path("param00") param00: String): Map<String, Any>
 }
 
 val retrofit = Retrofit.Builder()
@@ -52,7 +52,7 @@ val api = retrofit.create(ApiService::class.java)
 
 fun main() = runBlocking {
     try {
-        api.getData("Toy")
+        api.request("Toy")
     } catch (e: Exception) {
         e.printStackTrace()
         println("${e.message}")
