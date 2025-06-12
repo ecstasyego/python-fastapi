@@ -123,10 +123,10 @@ main()
 ### Server: Response
 - Parameter
     - Request Components 
-        - Path(...) / Path(None)
-        - Query(...) / Query(None)
-        - Body(...) / Body(None)
-        - Header(...) / Header(None)
+        - = Path(...) / = Path(None)
+        - = Query(...) / = Query(None)
+        - = Body(...) / = Body(None)
+        - = Header(...) / = Header(None)
     - Data Types
         - :str / :Optional[str] = None
         - :int / :Optional[int] = None
