@@ -36,14 +36,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 import kotlinx.coroutines.runBlocking
 
-data class Response(
-    val name: String,
-    val age: Int
+data class ServerResponse(
+    val rspns00: String,
+    val rspns01: Int
 )
 
 interface ApiService {
     @GET("/users/{username}")
-    suspend fun getData(@Path("username") username: String): Response
+    suspend fun getData(@Path("username") username: String): ServerResponse
 }
 
 val retrofit = Retrofit.Builder()
