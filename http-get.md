@@ -6,9 +6,12 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("/users/{username}")
+@app.get("/src/{username}")
 def response(username: str):
-    return {"name": "Alice", "age": 30}
+    serverResponse = dict()
+    serverResponse["rspns00"] = "Alice"
+    serverResponse["rspns01"] = 30
+    return serverResponse
 ```
 ```bash
 $ uvicorn script:app --host 0.0.0.0 --port 8000 --reload
@@ -42,7 +45,7 @@ data class ServerResponse(
 )
 
 interface ApiService {
-    @GET("/users/{username}")
+    @GET("/src/{username}")
     suspend fun getData(@Path("username") username: String): ServerResponse
 }
 
@@ -55,7 +58,7 @@ val api = retrofit.create(ApiService::class.java)
 
 fun main() = runBlocking {
     try {
-        api.getData("Daa")
+        api.getData("Dao")
     } catch (e: Exception) {
         e.printStackTrace()
     }
