@@ -2,6 +2,19 @@
 ## Server: Response
 `script.py`
 ```python
+from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
+from pydantic import BaseModel
+
+class User(BaseModel):
+    name: str
+    age: int
+
+app = FastAPI()
+
+@app.get("/users/{username}")
+def get_user(username: str):
+    return {"name": "Alice", "age": 30}
 ```
 ```bash
 $ uvicorn script:app --host 0.0.0.0 --port 8000 --reload
@@ -23,4 +36,36 @@ USE {
 }
 ```
 ```kts
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.*
+import kotlinx.coroutines.runBlocking
+
+data class User(
+    val name: String,
+    val age: Int
+)
+
+interface ApiService {
+    @GET("/users/{username}")
+    suspend fun getData(@Path("username") username: String): User
+}
+
+val retrofit = Retrofit.Builder()
+    .baseUrl("http://localhost:8000")
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+
+val api = retrofit.create(ApiService::class.java)
+
+fun main() = runBlocking {
+    try {
+        api.getData("Daa")
+    } catch (e: Exception) {
+        e.printStackTrace()
+    }
+}
+
+main()
 ```
