@@ -122,7 +122,7 @@ main()
 ## Content-Type: application/json
 ### Server: Response
 ```python
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Path, Query, Body
 from pydantic import BaseModel
 from typing import Optional
 
@@ -140,7 +140,7 @@ class ClientRequest(BaseModel):
 app = FastAPI()
 
 @app.post("/src/{param00}/{param01}")
-def response(param00: str, param01: str, param02: ClientRequest, param03: str = Query(...), param04: int = Query(...)):
+def response(param00: str = Path(...), param01: str = Path(...), param02: ClientRequest = Body(...), param03: str = Query(...), param04: int = Query(...)):
     serverResponse = dict()
     serverResponse["rspns00"] = "Alice"
     serverResponse["rspns01"] = param02
