@@ -61,6 +61,7 @@ fun main() = runBlocking {
         api.getData("Dao")
     } catch (e: Exception) {
         e.printStackTrace()
+        println("${e.message}")
     }
 }
 
