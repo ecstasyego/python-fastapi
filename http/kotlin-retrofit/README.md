@@ -6,7 +6,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 
-class ClientRequest(BaseModel):
+class ClientRequestBody(BaseModel):
     rqst00: str
     rqst01: int
 
@@ -20,14 +20,14 @@ def response(param00: str):
     return serverResponse
 
 @app.post("/src")
-def response(param00: ClientRequest):
+def response(param00: ClientRequestBody):
     serverResponse = dict()
     serverResponse["rspns00"] = "User created"
     serverResponse["rspns01"] = param00
     return serverResponse
 
 @app.put("/src/{param00}")
-def response(param00: str, param01: ClientRequest):
+def response(param00: str, param01: ClientRequestBody):
     serverResponse = dict()
     serverResponse["rspns00"] = "User created"
     serverResponse["rspns01"] = param01
