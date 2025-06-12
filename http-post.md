@@ -12,10 +12,10 @@ class ClientRequest(BaseModel):
 app = FastAPI()
 
 @app.post("/src")
-def response(request: ClientRequest):
+def response(param00: ClientRequest):
     serverResponse = dict()
     serverResponse["rspns00"] = "User created"
-    serverResponse["rspns01"] = request
+    serverResponse["rspns01"] = param00
     return serverResponse
 ```
 ```bash
@@ -56,7 +56,7 @@ data class ServerResponse(
 
 interface ApiService {
     @POST("/src")
-    suspend fun getData(@Body rspns01: Request): ServerResponse
+    suspend fun getData(@Body param00: Request): ServerResponse
 }
 
 val retrofit = Retrofit.Builder()
