@@ -2,6 +2,15 @@
 ## Server: Response
 `script.py`
 ```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.delete("/src/{param00}")
+def response(param00: str):
+    serverResponse = dict()
+    serverResponse["rspns00"] = "User created"
+    return serverResponse
 ```
 ```bash
 $ uvicorn script:app --host 0.0.0.0 --port 8000 --reload
@@ -23,4 +32,33 @@ USE {
 }
 ```
 ```kts
+import retrofit2.Retrofit
+import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.*
+import kotlinx.coroutines.runBlocking
+
+interface ApiService {
+    @DELETE("/src/{param00}")
+    suspend fun getData(@Path("param00") param00: String): Map<String, Any>
+}
+
+val retrofit = Retrofit.Builder()
+    .baseUrl("http://localhost:8000")
+    .addConverterFactory(GsonConverterFactory.create())
+    .build()
+
+val api = retrofit.create(ApiService::class.java)
+
+fun main() = runBlocking {
+    try {
+        api.getData("Toy")
+    } catch (e: Exception) {
+        e.printStackTrace()
+        println("${e.message}")
+
+    }
+}
+
+main()
 ```
