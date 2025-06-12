@@ -6,8 +6,8 @@ from fastapi import FastAPI
 
 app = FastAPI()
 
-@app.get("/src/{username}")
-def response(username: str):
+@app.get("/src/{param00}")
+def response(param00: str):
     serverResponse = dict()
     serverResponse["rspns00"] = "Alice"
     serverResponse["rspns01"] = 30
@@ -45,8 +45,8 @@ data class ServerResponse(
 )
 
 interface ApiService {
-    @GET("/src/{username}")
-    suspend fun getData(@Path("username") username: String): ServerResponse
+    @GET("/src/{pathParam}")
+    suspend fun getData(@Path("pathParam") param00: String): ServerResponse
 }
 
 val retrofit = Retrofit.Builder()
