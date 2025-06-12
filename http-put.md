@@ -4,6 +4,7 @@
 ```python
 ```
 ```bash
+$ uvicorn script:app --reload
 ```
 
 ## Client: Request
