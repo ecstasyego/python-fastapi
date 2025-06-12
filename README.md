@@ -93,17 +93,6 @@ $ curl -G -d "Key1=Value1" -d "Key2=Value2" [Scheme://User@Host:Port/Path#Fragme
 $ curl -X POST -d "Key1=Value1&Key2=Value2" [Scheme://User@Host:Port/Path#Fragment]
 ```
 
-`Python: Request`
-```python
-import requests
-
-requests.get("http://localhost:8000").json()
-requests.get("http://localhost:8000", params={"Key": "Name"}).json() # Query String
-requests.post("http://localhost:8000", data={"Key01": "Value01", "Key02": "Value02"}).json()
-requests.put("http://localhost:8000", json={"Key01": "Value01", "Key02": "Value02"}).json()
-requests.patch("http://localhost:8000", json={"Key01": "Value01", "Key02": "Value02"}).json()
-requests.delete("http://localhost:8000").json()
-```
 
 <br><br><br>
 
