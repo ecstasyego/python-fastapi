@@ -45,8 +45,8 @@ data class ServerResponse(
 )
 
 interface ApiService {
-    @GET("/src/{pathParam}")
-    suspend fun getData(@Path("pathParam") param00: String): ServerResponse
+    @GET("/src/{param00}")
+    suspend fun getData(@Path("param00") param00: String): ServerResponse
 }
 
 val retrofit = Retrofit.Builder()
