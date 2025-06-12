@@ -122,17 +122,25 @@ main()
 ## Content-Type: application/json
 ### Server: Response
 ```python
-from fastapi import FastAPI
+from fastapi import FastAPI, Query
 from pydantic import BaseModel
+from typing import Optional
 
 class ClientRequest(BaseModel):
     rqst00: str
     rqst01: int
+    rqst02: float
+    rqst03: bool
+
+    rqst04: Optional[str] = None   # nullable
+    rqst05: Optional[int] = None   # nullable
+    rqst06: Optional[float] = None # nullable
+    rqst07: Optional[bool] = None  # nullable
 
 app = FastAPI()
 
 @app.post("/src/{param00}/{param01}")
-def response(param00: str, param01: str, param02: ClientRequest, param03: str, param04: int):
+def response(param00: str, param01: str, param02: ClientRequest, param03: str = Query(...), param04: int = Query(...)):
     serverResponse = dict()
     serverResponse["rspns00"] = "Alice"
     serverResponse["rspns01"] = param02
@@ -165,7 +173,14 @@ import kotlinx.coroutines.runBlocking
 
 data class JsonContentType(
     val rqst00: String,
-    val rqst01: Int    
+    val rqst01: Int,    
+    val rqst02: Float,
+    val rqst03: Boolean,    
+    
+    val rqst04: String?,
+    val rqst05: Int?,    
+    val rqst06: Float?,
+    val rqst07: Boolean?,    
 )
 
 interface ApiService {
@@ -193,7 +208,13 @@ fun main() = runBlocking {
             param01 = "res",
             param02 = JsonContentType(
                 "A",
-                1
+                1,
+                3.14f,
+                true,
+                null,
+                null,
+                null,
+                null
             ),
             param03 = "querystring",
             param04 = 1
