@@ -17,7 +17,10 @@ $ pip install python-jose[cryptography]
 $ pip install passlib[bcrypt]
 $ pip install python-multipart
 ```
-
+`Installation: DB`
+```bash
+$ pip install sqlalchemy asyncmy
+```
 
 ## Server-Side: Response
 `script.py`
