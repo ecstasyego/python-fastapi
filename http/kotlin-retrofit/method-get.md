@@ -1,4 +1,4 @@
-### @Path
+### GET@Path
 #### Server: Response
 `script.py`
 ```python
@@ -68,7 +68,7 @@ fun main() = runBlocking {
 main()
 ```
 
-### @Query
+### GET@Query
 
 #### Server: Response
 `script.py`
