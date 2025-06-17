@@ -234,10 +234,12 @@ from fastapi import FastAPI
 app = FastAPI()
 
 @app.get("/src")
-def response(param00:str = "", param01:int = 0):
+def response(request: Request):
+    queryMap = dict(request.query_params)
+
     serverResponse = dict()
-    serverResponse["rspns00"] = param00
-    serverResponse["rspns01"] = param01
+    serverResponse["rspns00"] = queryMap["param00"]
+    serverResponse["rspns01"] = queryMap["param01"]
     return serverResponse
 ```
 ```bash
