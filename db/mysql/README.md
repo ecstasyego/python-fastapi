@@ -41,7 +41,6 @@ user = "root"
 password = "PASSWORD"
 host = "localhost"
 port = 3306
-
 connection(user, password, host, port)
 ```
 
@@ -99,6 +98,5 @@ user = "root"
 password = "PASSWORD"
 host = "localhost"
 port = 3306
-
 asyncio.run(connection(user, password, host, port))
 ```
