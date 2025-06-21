@@ -36,7 +36,7 @@ try:
         f"mysql+asyncmy://{user}:{password}@{host}:{port}/{dbname}",
         echo=False,
     )
-    async with engine.connect() as conn:  # type: AsyncConnection
+    async with engine.connect() as conn:
         result = await conn.execute(text("""SHOW DATABASES"""))
         df = pd.DataFrame(result.fetchall())
         print("Connection Success")
