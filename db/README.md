@@ -1,4 +1,4 @@
-
+`script.py`
 ```python
 from fastapi import FastAPI
 from concurrent.futures import ThreadPoolExecutor
@@ -13,4 +13,7 @@ def heavy_calculation(n):
 async def processing(n: int):
     result = await asyncio.get_running_loop().run_in_executor(executor, heavy_calculation, n)
     return {"result": result}
+```
+```bash
+$ uvicorn script:app --host 0.0.0.0 --port 8000 --reload
 ```
