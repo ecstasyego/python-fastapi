@@ -80,12 +80,7 @@ from sqlalchemy.ext.asyncio import create_async_engine
 
 async def connection(user, password, host, port):
     try:
-        dbname = "mysql"
-        engine = create_async_engine(
-            f"mysql+asyncmy://{user}:{password}@{host}:{port}/{dbname}",
-            echo=False,
-        )
-        async with engine.connect() as conn:  # type: AsyncConnection
+        async with engine.connect() as conn:
             result = await conn.execute(text("""SHOW DATABASES"""))
             df = pd.DataFrame(result.fetchall())
             print("Connection Success")
@@ -99,5 +94,8 @@ user = "root"
 password = "PASSWORD"
 host = "localhost"
 port = 3306
+dbname = "mysql"
+
+engine = create_async_engine(f"mysql+asyncmy://{user}:{password}@{host}:{port}/{dbname}", echo=False)
 asyncio.run(connection(user, password, host, port))
 ```
