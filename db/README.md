@@ -20,8 +20,9 @@ $ uvicorn script:app --host 0.0.0.0 --port 8000 --reload
 ### Asynchronous
 `script.py`
 ```python
-from fastapi import FastAPI
+import asyncio
 from concurrent.futures import ThreadPoolExecutor
+from fastapi import FastAPI
 
 app = FastAPI()
 executor = ThreadPoolExecutor(max_workers=5)
