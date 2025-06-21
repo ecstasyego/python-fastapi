@@ -25,8 +25,6 @@ from sqlalchemy import create_engine, text
 
 def connection(user, password, host, port):
     try:
-        dbname = "mysql"
-        engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{dbname}")
         with engine.connect() as conn:
             result = conn.execute(text("""SHOW DATABASES"""))
             df = pd.DataFrame(result.fetchall())
@@ -36,12 +34,15 @@ def connection(user, password, host, port):
 
     return df
 
-
 user = "root"
 password = "PASSWORD"
 host = "localhost"
 port = 3306
+dbname = "mysql"
+
+engine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{dbname}")
 connection(user, password, host, port)
+
 ```
 
 
