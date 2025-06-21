@@ -14,7 +14,7 @@ try:
         conn.execute(text(f"CREATE DATABASE IF NOT EXISTS {dbname}"))
         subengine = create_engine(f"mysql+pymysql://{user}:{password}@{host}:{port}/{dbname}")
         with subengine.connect() as conn:    
-            result = conn.execute(text("""SHOW DATABASES"""))
+            result = conn.execute(text("""SHOW TABLES"""))
             df = pd.DataFrame(result.fetchall())
             display(df)
         print("Connection Success")
